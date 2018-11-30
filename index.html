@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <div id="btnTarget"> </div>
+    <div id="gifs-appear-here">
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript">
+
+// ========================================================Generate Buttons ===============================================================================
+        var comedians = ['john oliver', 'marcella arguello', 'naomi ekperigin', 'chris garcia', 'joe pera', 'maz jobrani', 'gabriel iglesias']
+
+        function renderButtons() {
+
+            
+            // (this is necessary otherwise you will have repeat buttons)
+            $("#btnTarget").empty();
+            // Loops through the array of comedians
+            for (var i = 0; i < comedians.length; i++) {
+
+                // Then dynamicaly generates buttons for each movie in the array
+                // This code $("<button>") is all jQuery needs to create the beginning and end tag. (<button></button>)
+                var a = $("<button>");
+                // Adds a class of movie to our button
+                a.addClass("comedian");
+                // Added a data-attribute
+                a.attr("btn-name", comedians[i]);
+                // Provided the initial button text
+                a.text(comedians[i]);
+                // Added the button to the buttons-view div
+                $("#btnTarget").append(a);
+            }
+        }
+
+        // This function handles events where the add movie button is clicked
+        $("this").on("click", function (event) {
+            event.preventDefault();
+            // This line of code will grab the input from the textbox
+            var data = $("#btn-name").val();
+
+            // The movie from the textbox is then added to our array
+            comedians.push(comedians);
+
+            // Calling renderButtons which handles the processing of our movie array
+            renderButtons();
+        });
+
+        // Adding click event listeners to all elements with a class of "movie"
+        $(document).on("click", ".comedian", displayComedianInfo);
+
+        // Calling the renderButtons function to display the intial buttons
+        renderButtons();
+
+
+
+
+// =======================================================================================================================================
+
+
+        // Adding click event listen listener to all buttons
+        function displayComedianInfo() {
+            
+            $(".comedian").on("click", function () {
+
+           
+
+            // Grabbing and storing the data-animal property value from the button
+            //   var animal = $(this).attr("data-animal");
+
+            var btnInfo = $(this).attr("btn-name");
+
+            // Constructing a queryURL using the comedian name
+            var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+                btnInfo + "&api_key=PVlf9tWXIEFP8O8hIC4eS0Ehg2P9nvCz&limit=10";
+            //dc6zaTOxFJmzC -- Trilogy api key
+            console.log(btnInfo);
+
+            // Performing an AJAX request with the queryURL
+            $.ajax({
+                url: queryURL,
+                method: "GET"
+            })
+                // After data comes back from the request
+                .then(function (response) {
+                    console.log(queryURL);
+
+                    console.log(response);
+                    // storing the data from the AJAX request in the results variable
+                    var results = response.data;
+
+                    // Looping through each result item
+                    for (var i = 0; i < results.length; i++) {
+
+                        // Creating and storing a div tag
+                        var comedianDiv = $("<div>");
+
+                        // Creating a paragraph tag with the result item's rating
+                // var p = $("<p>").text("Comedian: " + results[i].rating);
+
+                        // Creating and storing an image tag
+                        var comedianImage = $("<img>");
+                        // Setting the src attribute of the image to a property pulled off the result item
+                        comedianImage.attr("src", results[i].images.fixed_height.url);
+
+                        // Appending the paragraph and image tag to the animalDiv
+                        var p = $("<p>");
+                        comedianDiv.append(p);
+                        comedianDiv.append(comedianImage);
+
+                        // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
+                        $("#gifs-appear-here").prepend(comedianDiv);
+                    }
+                });
+        });
+        }
+    </script>
+
+    <!-- Try using a loop that appends a button for each string in the array.
+
+3. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
+
+4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
+
+5. Under every gif, display its rating (PG, G, so on).
+   * This data is provided by the GIPHY API.
+   * Only once you get images displaying with button presses should you move on to the next step.-->
+
+</body>
+
+</html>
