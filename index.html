@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>GiphyShow-Comedy Collage</title>
+
+
+
 </head>
 
 <body>
@@ -13,14 +16,27 @@
 
 
     <div id="btnTarget"> </div>
-    <div id="gifs-appear-here">
-    </div>
+    <div id="btnTarget-2"> </div>
+    <div id="gifs-appear-here"> </div>
+    <!--================================== User Input Form ================================================-->
 
+
+    <form id="comedian-form">
+        <label for="comedian-input">Name a Comedian</label>
+        <input type="text" id="comedian-input"><br>
+
+        <input id="add-comedian" type="submit" value="Add to the list!">
+    </form>
+
+
+
+    <!-- ================================== Start Script ==================================================-->
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript">
 
- // ========================================================Generate Buttons ===============================================================================
+
+        // ======================================================== Generate Buttons ===============================================================================
 
         var comedians = ['john oliver', 'marcella arguello', 'naomi ekperigin', 'chris garcia', 'joe pera', 'maz jobrani', 'gabriel iglesias']
 
@@ -43,6 +59,9 @@
                 // Added the button to the buttons-view div
                 $("#btnTarget").append(a);
             }
+
+
+
         }
 
         // This function handles events where the add movie button is clicked
@@ -58,16 +77,28 @@
             renderButtons();
         });
 
-        // Adding click event listeners to all elements with a class of "movie"
+        // Adding click event listeners to all elements with a class of "comedian"
         $(document).on("click", ".comedian", displayComedianInfo);
 
         // Calling the renderButtons function to display the intial buttons
         renderButtons();
 
+        // ===================================== User Input Handling =======================================================================
+        var comInput = $("#comedian-input").val();
+        $("#add-comedian").on('click', function () {
+            comedians.push(comInput);
+            // displayComedianInfo()
+            renderButtons();
+        })
 
 
 
- // ==============================================Button Click Event Handling=========================================================================================
+
+
+
+
+
+        // ============================================== Button Click Event Handling =========================================================================================
 
 
         // Adding click event listen listener to all buttons
@@ -130,7 +161,7 @@
                             $("#gifs-appear-here").prepend(comedianDiv);
                         }
 
-//==================================Gif Click Event Handling=========================================================================
+                        // ================================== Gif Click Event =========================================================================
 
                         $('.gif').on("click", function () {
 
@@ -150,26 +181,13 @@
 
 
                         });
+
+
                     });
             });
+
         }
-
-
-
     </script>
-
-    <!-- Try using a loop that appends a button for each string in the array.
-
-3. When the user clicks on a button, the page should grab 10 static, non-animated gif images from the GIPHY API and place them on the page.
-
-4. When the user clicks one of the still GIPHY images, the gif should animate. If the user clicks the gif again, it should stop playing.
-
-5. Under every gif, display its rating (PG, G, so on).
-   * This data is provided by the GIPHY API.
-   * Only once you get images displaying with button presses should you move on to the next step.
-
-Add a form to your page takes the value from a user input box and adds it into your `topics` array. 
-Then make a function call that takes each topic in the array remakes the buttons on the page.-->
 
 </body>
 
