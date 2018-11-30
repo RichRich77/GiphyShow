@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>GiphyShow-Comedy Collage</title>
+    <title>GiphyShow-Comedy Collage- Go Giphy Go!</title>
 
 
 
@@ -25,7 +25,7 @@
         <label for="comedian-input">Name a Comedian</label>
         <input type="text" id="comedian-input"><br>
 
-        <input id="add-comedian" type="submit" value="Add to the list!">
+        <input id="add-comedian" type="submit" value="Go Giphy Go!">
     </form>
     </div>
 
@@ -36,7 +36,7 @@
     <script type="text/javascript">
 
 
-        // ======================================================== Generate Buttons ===============================================================================
+    // ======================================================== Generate Buttons ===============================================================================
 
         var comedians = ['john oliver', 'marcella arguello', 'naomi ekperigin', 'chris garcia', 'joe pera', 'maz jobrani', 'gabriel iglesias']
 
@@ -54,10 +54,7 @@
                 $("#btnTarget").append(a);
             }
 
-
-
         }
-
         
         $("this").on("click", function (event) {
             event.preventDefault();
@@ -67,13 +64,11 @@
             renderButtons();
         });
 
-        // Adding click event listeners to all elements with a class of "comedian"
         $(document).on("click", ".comedian", displayComedianInfo);
 
-        // Calling the renderButtons function to display the intial buttons
         renderButtons();
 
-        // ===================================== User Input Handling =======================================================================
+    // ===================================== User Input Handling =======================================================================
         
 
 //         $( "#add-comedian" )
@@ -96,7 +91,7 @@
         })
         
 
-        // ============================================== Button Click Event Handling =========================================================================================
+// ============================================== Button Click Event Handling =========================================================================================
 
 
         
@@ -109,55 +104,42 @@
               
                 var btnInfo = $(this).attr("btn-name");
 
-                // Constructing a queryURL using the comedian name
                 var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
                     btnInfo + "&api_key=PVlf9tWXIEFP8O8hIC4eS0Ehg2P9nvCz&limit=10";
                 //dc6zaTOxFJmzC -- Trilogy api key
                 console.log(btnInfo);
 
-                // Performing an AJAX request with the queryURL
                 $.ajax({
                     url: queryURL,
                     method: "GET"
                 })
-                    // After data comes back from the request
                     .then(function (response) {
-                        console.log(queryURL);
+                        // console.log(queryURL);
+                        // console.log(response);
 
-                        console.log(response);
-                        // storing the data from the AJAX request in the results variable
                         var results = response.data;
 
-                        // Looping through each result item
-                        for (var i = 0; i < results.length; i++) {
-
-                            // Creating and storing a div tag
+                         for (var i = 0; i < results.length; i++) {
+                            
                             var comedianDiv = $("<div>");
 
-                            // Creating a paragraph tag with the result item's rating
                             var p = $("<p>").text("Rating: " + results[i].rating);
-
-                            // Creating and storing an image tag
                             var comedianImage = $("<img>");
-                            // Setting the src attribute of the image to a property pulled off the result item
+                            
                             comedianImage.attr("src", results[i].images.fixed_height.url);
                             comedianImage.attr("class", "gif");
                             comedianImage.attr("data-animate", results[i].images.fixed_height.url);
                             comedianImage.attr("data-still", results[i].images.fixed_height_still.url);
                             comedianImage.attr("data-state", "animate");
 
-
-
-                            // Appending the paragraph and image tag to the animalDiv
                             // var p = $("<p>");
                             comedianDiv.append(p);
                             comedianDiv.append(comedianImage);
 
-                            // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
                             $("#gifs-appear-here").prepend(comedianDiv);
                         }
 
-                        // ================================== Gif Click Event =========================================================================
+// ================================== Gif Click Event =========================================================================
 
                         $('.gif').on("click", function () {
 
