@@ -1,0 +1,27 @@
+#targetContainer {
+    position: relative;
+    float: left;
+    border: 2px solid gray;
+    margin-top: 27px;
+}
+
+#formContainer {
+    position: relative;
+    float:left;
+    border: 2px solid gray;
+    margin: 25px 0px 0px 50px;
+    padding: 20px;
+    align-content: center;
+}
+
+#add-comedian {
+    margin: 10px 0px 0px 140px;
+}
+
+body {
+    opacity: .9;
+}
+
+#comedian-input {
+    margin: 0px 5px;
+}
